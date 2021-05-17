@@ -1,4 +1,4 @@
-# hazard_percpetion
+# hazard_perception
 A method of analysing and identifying hazards in an automated fashion for the Hazard Perception Test that is required to be undertaken by all learner drivers when undertaking the UK Theory Test.
 
 A vital part of the UK Theory Test is the Hazard Perception which is a seris of clips that features everyday road scenes and contains a developing hazard. Candidates are required to identify the hazard in the clip by clicking on it at the appropriate time. Points are awarded for spotting the hazards as soon as they start to occur. These are hazards that would cause you to take action to either change your speed or direction.
