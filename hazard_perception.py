@@ -52,9 +52,9 @@ def object_detection(model_path: str, input_image_path: str, output_image_path: 
 
 
 # Split video into images
-def split_video_into_images(video_file_location: str,
-                            output_image_file_location: str,
-                            skip_frames: int=None):
+def split_video_into_images(
+    video_file_location: str, output_image_file_location: str, skip_frames: int = None
+):
     """
     Takes in a video file and splits into images.
 
@@ -118,7 +118,9 @@ def split_video_into_images(video_file_location: str,
 
 
 # Combine images back into video file
-def combine_images_to_video(images_filepath: str, video_output_path: str, video_name: str):
+def combine_images_to_video(
+    images_filepath: str, video_output_path: str, video_name: str
+):
     """
     Takes images from the filepath input and turns it into a video file (mp4 format).
 
@@ -187,7 +189,7 @@ def make_new_filepath(input_image_path: str) -> str:
     input_image_list = input_image_list[:-1]
 
     # Make a new filename
-    new_name = 'analysed/' + old_name.split(".")[0] + "_new.jpg"
+    new_name = "analysed/" + old_name.split(".")[0] + "_new.jpg"
 
     # Create an output image list
     output_image_list = input_image_list + [new_name]
@@ -217,6 +219,7 @@ def make_new_filepaths(input_images_paths: list) -> list:
 
     return output_filepaths
 
+
 def main():
     """
     The execution of the main functions based on the execution of the hazard perception functions.
@@ -227,44 +230,61 @@ def main():
 
     """
     # Split video into images
-    video_file_location = '/Users/aniruddha.sengupta/Desktop/Hazard Perception/videos/video.mp4'
-    output_image_file_location = '/Users/aniruddha.sengupta/Desktop/Hazard Perception/images/'
+    video_file_location = (
+        "/Users/aniruddha.sengupta/Desktop/Hazard Perception/videos/video.mp4"
+    )
+    output_image_file_location = (
+        "/Users/aniruddha.sengupta/Desktop/Hazard Perception/images/"
+    )
 
-    split_video_into_images(video_file_location=video_file_location,
-                            output_image_file_location=output_image_file_location)
+    split_video_into_images(
+        video_file_location=video_file_location,
+        output_image_file_location=output_image_file_location,
+    )
 
     # Object detection
-    model_path = '/Users/aniruddha.sengupta/Desktop/Hazard Perception/weights/yolo.h5'
+    model_path = "/Users/aniruddha.sengupta/Desktop/Hazard Perception/weights/yolo.h5"
 
     # Make a list of input image paths
     input_images_paths = []
-    for filename in sorted(glob.glob(f'{output_image_file_location}*.jpg'), key=os.path.getmtime):
+    for filename in sorted(
+        glob.glob(f"{output_image_file_location}*.jpg"), key=os.path.getmtime
+    ):
         input_images_paths.append(filename)
 
     # Create the output filepaths
     output_images_paths = make_new_filepaths(input_images_paths)
 
-    for input_image_path, output_image_path in zip(input_images_paths, output_images_paths):
-        object_detection(model_path=model_path,
-                         input_image_path=input_image_path,
-                         output_image_path=output_image_path)
+    for input_image_path, output_image_path in zip(
+        input_images_paths, output_images_paths
+    ):
+        object_detection(
+            model_path=model_path,
+            input_image_path=input_image_path,
+            output_image_path=output_image_path,
+        )
         clear_output(wait=True)
 
     # Combine images back to video
-    analysed_image_file_location = '/Users/aniruddha.sengupta/Desktop/Hazard Perception/images/analysed/'
+    analysed_image_file_location = (
+        "/Users/aniruddha.sengupta/Desktop/Hazard Perception/images/analysed/"
+    )
 
     analysed_image_paths = []
-    for filename in sorted(glob.glob(f'{analysed_image_file_location}*.jpg'), key=os.path.getmtime):
+    for filename in sorted(
+        glob.glob(f"{analysed_image_file_location}*.jpg"), key=os.path.getmtime
+    ):
         analysed_image_paths.append(filename)
 
-    video_output_path = '/Users/aniruddha.sengupta/Desktop/Hazard Perception/videos/'
+    video_output_path = "/Users/aniruddha.sengupta/Desktop/Hazard Perception/videos/"
 
-    combine_images_to_video(images_filepath=analysed_image_file_location,
-                            video_output_path=video_output_path,
-                            video_name='project.mp4')
+    combine_images_to_video(
+        images_filepath=analysed_image_file_location,
+        video_output_path=video_output_path,
+        video_name="project.mp4",
+    )
 
 
 # Execution
 if __name__ == "__main__":
     main()
-
